@@ -18,26 +18,70 @@
             color: #ffd600;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            align-items: flex-start;
+            min-height: 150vh;
             overflow-x: hidden;
             flex-direction: column;
             padding: 20px;
             position: relative;
+            scroll-behavior: smooth;
         }
 
-        h1 {
-            color: #ffd600;
+        /* Background video styling */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.7);
+            transition: filter 0.5s ease;
+        }
+
+        /* Gradient mask over video that fades to black on scroll */
+        #video-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 80%);
+            z-index: -1;
+            transition: background 0.5s ease;
+        }
+
+        /* Heading */
+        h1#main-heading {
+            color: white;
+            font-weight: 900;
+            font-size: 3rem;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 2rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px #ffd600;
-            z-index: 10;
-            position: relative;
+            letter-spacing: 5px;
+            margin-bottom: 60px;
+            text-shadow: 0 0 15px #ffd600, 0 0 25px #ffd600;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
+        h1#main-heading.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards container */
+        #question-container {
+            position: relative;
+            height: 230px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Question cards */
         .card {
             background: #111;
             border: 3px solid #ffd600;
@@ -49,9 +93,8 @@
             opacity: 0;
             position: absolute;
             left: -100%;
-            top: 100px;
+            top: 0;
             transition: none;
-            z-index: 10;
         }
 
         .card.active {
@@ -95,8 +138,6 @@
             cursor: pointer;
             box-shadow: 0 0 15px #ffd600aa;
             transition: background 0.3s ease;
-            z-index: 10;
-            position: relative;
         }
 
         button:hover {
@@ -119,7 +160,7 @@
             text-align: center;
             animation: fadeInScale 1s ease forwards;
             position: relative;
-            z-index: 10;
+            margin-top: 80px;
         }
 
         #celebration h2 {
@@ -156,7 +197,6 @@
             height: 100%;
             pointer-events: none;
             overflow: visible;
-            z-index: 20;
         }
 
         .confetti-piece {
@@ -180,37 +220,25 @@
                 opacity: 0;
             }
         }
-
-        /* Container for absolute positioning */
-        #question-container {
-            position: relative;
-            height: 230px;
-            /* Enough for the cards */
-            width: 100%;
-            max-width: 400px;
-            z-index: 10;
-        }
-
-        /* Background Video Styling */
-        #bg-video {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 320px;
-            height: 180px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px #ffd600cc;
-            z-index: 1;
-            object-fit: cover;
-            background: black;
-        }
     </style>
 </head>
 
 <body>
 
-    <h1>Body Fat Birthday Candles 🎂🔥</h1>
+    <!-- Background video: 
+       Replace "your-video.mp4" below with your actual video file name or path -->
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="c:\Users\albin\Downloads\Candle_Faceoff_Video_Generation.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
 
+    <!-- Black fade gradient mask over video -->
+    <div id="video-mask"></div>
+
+    <!-- Heading -->
+    <h1 id="main-heading">THE ULTIMATE POINTLESS QUESTION</h1>
+
+    <!-- Question Cards Container -->
     <div id="question-container">
         <!-- Question Cards -->
         <div class="card active" id="q-age">
@@ -253,19 +281,18 @@
     <!-- Confetti Container -->
     <div class="confetti" id="confetti-container"></div>
 
-    <!--
-      Background video added here:
-      Replace 'my-cat-video.mp4' with your local video file path.
-      This video plays automatically, loops, and has controls.
-    -->
-    <video id="bg-video" autoplay loop playsinline controls muted>
-        <source src="c:\Users\albin\Downloads\Candle_Faceoff_Video_Generation.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-    </video>
-
     <script>
         let current = 0;
         const questions = ["q-age", "q-sex", "q-height", "q-weight"];
+        const heading = document.getElementById('main-heading');
+        const questionContainer = document.getElementById('question-container');
+        const videoMask = document.getElementById('video-mask');
+        const bgVideo = document.getElementById('bg-video');
+
+        // Show heading on load
+        window.addEventListener('load', () => {
+            heading.classList.add('visible');
+        });
 
         function nextQuestion() {
             const currId = questions[current];
@@ -279,7 +306,6 @@
             // Animate current card sliding out right
             currCard.classList.add("slide-out");
 
-            // After animation ends, hide current and show next
             currCard.addEventListener("transitionend", function handler() {
                 currCard.classList.remove("active", "slide-out");
                 currCard.removeEventListener("transitionend", handler);
@@ -288,6 +314,8 @@
                 if (current < questions.length) {
                     const nextCard = document.getElementById(questions[current]);
                     nextCard.classList.add("active");
+                    // Scroll down smoothly to the question container
+                    nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             });
         }
@@ -336,6 +364,7 @@
 
                 const celebration = document.getElementById("celebration");
                 celebration.style.display = "flex";
+                celebration.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 document.getElementById("candlesCount").textContent = candles.toLocaleString();
 
                 launchConfetti();
@@ -359,11 +388,30 @@
                 confettiContainer.appendChild(confetti);
             }
 
-            // Remove confetti after animation
             setTimeout(() => {
                 confettiContainer.innerHTML = "";
             }, 4000);
         }
+
+        // Scroll event to fade heading and adjust video mask
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const fadeThreshold = 150;
+
+            // Fade heading out after threshold
+            if (scrollY > fadeThreshold) {
+                heading.style.opacity = Math.max(1 - (scrollY - fadeThreshold) / 150, 0);
+                heading.style.transform = `translateY(${30 + (scrollY - fadeThreshold) / 3}px)`;
+            } else {
+                heading.style.opacity = 1;
+                heading.style.transform = 'translateY(0)';
+            }
+
+            // Darken video mask as user scrolls down
+            const maskOpacity = Math.min(scrollY / 300, 0.9);
+            videoMask.style.background = `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,${maskOpacity}) 80%)`;
+            bgVideo.style.filter = `brightness(${0.7 - maskOpacity * 0.5})`;
+        });
     </script>
 
 </body>
