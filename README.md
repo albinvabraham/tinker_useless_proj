@@ -1,4 +1,3 @@
-
 # IWasTooLazyToNameIt 🎯
 
 
@@ -10,7 +9,7 @@
 - Team Lead: Albin V Abraham - ICCS COLLLEGE OF ENGINEERING AND MANAGEMENT
 
 ### Project Description
-[2-3 lines about what your project does]
+This project is a collection of playful, pointless web calculators designed to provide humorous answers to absurd questions. It takes a user's physical details like age, height, and weight to calculate things nobody has ever asked for, such as how many birthday candles could be made from their body fat or how much saliva they produce in a year.
 
 ### The Problem (that doesn't exist)
 I am trying to give a useless answer to useless info
@@ -21,62 +20,54 @@ I was just making a solution which popped in my head as i was procrasinating whi
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- HTML
-- VS STUDIO
+- **HTML5**: For the structure and content of the web pages.
+- **CSS3**: For all styling, including layouts, colors, and animations (gradients, sliding cards, confetti).
+- **JavaScript (Vanilla)**: For all interactivity, including the one-at-a-time question logic and calculations.
+- **VS Code**: As the primary code editor.
+
 ### Implementation
+This project is built with standard web technologies and requires no special installation or build steps. All code is self-contained within the HTML files.
+
 For Software:
 # Installation
-[commands]
+No installation is required. Simply open the `.html` files in any modern web browser.
 
 # Run
-[commands]
+Navigate to the project folder and open the main hub page file (e.g., `options.html`) to begin.
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot1](hub_page_screenshot.png)
+*The main hub page with a neon green theme, presenting the "Saliva" and "Candle" calculator options.*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot2](candle_calculator_screenshot.png)
+*The "Pointless Moment" calculator, featuring a dark, glossy cyberpunk theme with animated neon question cards.*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot3](result_screenshot.png)
+*The maroon-themed result screen for the candle calculator, displaying the final count with a celebratory message.*
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+![Workflow](workflow_diagram.png)
+*The user starts at the hub, chooses a calculator, answers a series of questions one-by-one, and is finally presented with a humorous, calculated result.*
 
 For Hardware:
+N/A
 
 # Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
+N/A
 
 # Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
+N/A
 
 ### Project Demo
 # Video
 [Add your demo video link here]
-*Explain what the video demonstrates*
+*The video demonstrates navigating from the main hub page, selecting one of the calculators, answering the series of questions, and arriving at the final, animated result screen.*
 
 # Additional Demos
 [Add any extra demo materials/links]
 
 ## Team Contributions
 - Albin V Abraham: [BASICALLY I DID EVERYTHING!]
-
-
-
