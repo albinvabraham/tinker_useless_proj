@@ -1,3 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Trap</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(-45deg, #2a003f, #0d1b2a, #16213e, #3a0ca3);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            color: #aec85a;
+            text-shadow: 0px 0px 20px rgba(255, 159, 243, 0.8);
+            text-align: center;
+            max-width: 80%;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .button-box {
+            border: 2px solid #00f5d4;
+            padding: 20px;
+            width: 400px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 25px rgba(0, 245, 212, 0.4);
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            position: absolute;
+            transition: 0.2s;
+        }
+
+        #enter-btn {
+            background: #00f5d4;
+            color: #0d1b2a;
+            left: 100px;
+            top: 80px;
+        }
+
+        #enter-btn:hover {
+            background: #00d1b2;
+            box-shadow: 0px 0px 15px #00f5d4;
+        }
+
+        #back-btn {
+            background: #ff006e;
+            color: white;
+            left: 250px;
+            top: 80px;
+        }
+
+        #back-btn:hover {
+            background: #d90452;
+            box-shadow: 0px 0px 15px #ff006e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome here, where you cannot escape at all</h1>
+
+    <div class="button-box" id="buttonBox">
+        <button id="enter-btn">Enter</button>
+        <button id="back-btn">Back</button>
+    </div>
+
+    <script>
+        const backBtn = document.getElementById("back-btn");
+        const enterBtn = document.getElementById("enter-btn");
+        const box = document.getElementById("buttonBox");
+
+        box.addEventListener("mousemove", (e) => {
+            const rect = box.getBoundingClientRect();
+            const btnRect = backBtn.getBoundingClientRect();
+
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            const btnX = btnRect.left - rect.left + btnRect.width / 2;
+            const btnY = btnRect.top - rect.top + btnRect.height / 2;
+
+            const dist = Math.hypot(mouseX - btnX, mouseY - btnY);
+
+            // Run away sooner (200px instead of close)
+            if (dist < 200) {
+                let newX = btnRect.left - rect.left + (btnX - mouseX) * 0.8;
+                let newY = btnRect.top - rect.top + (btnY - mouseY) * 0.8;
+
+                // Keep inside box
+                newX = Math.min(rect.width - btnRect.width, Math.max(0, newX));
+                newY = Math.min(rect.height - btnRect.height, Math.max(0, newY));
+
+                backBtn.style.left = newX + "px";
+                backBtn.style.top = newY + "px";
+            }
+        });
+
+        // Enter button click
+        enterBtn.addEventListener("click", () => {
+            alert("You chose to enter... and there's no way back now.");
+        });
+    </script>
+
+</body>
+
+</html>
