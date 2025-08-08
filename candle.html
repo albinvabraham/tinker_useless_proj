@@ -14,8 +14,8 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #282727;
-            color: #ffd600;
+            background: #121212;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -53,23 +53,30 @@
             transition: background 0.5s ease;
         }
 
-        /* Heading */
+        /* Heading fixed top center */
         h1#main-heading {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             color: white;
             font-weight: 900;
             font-size: 3rem;
-            text-align: center;
             letter-spacing: 5px;
-            margin-bottom: 60px;
-            text-shadow: 0 0 15px #ffd600, 0 0 25px #ffd600;
-            opacity: 0;
-            transform: translateY(30px);
+            text-shadow: 0 0 15px #a084ff, 0 0 25px #a084ff;
+            opacity: 1;
+            margin: 0;
+            z-index: 10;
+            background: rgba(18, 18, 18, 0.8);
+            padding: 10px 30px;
+            border-radius: 12px;
+            user-select: none;
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
 
-        h1#main-heading.visible {
-            opacity: 1;
-            transform: translateY(0);
+        h1#main-heading.hidden {
+            opacity: 0;
+            transform: translate(-50%, 30px);
         }
 
         /* Cards container */
@@ -78,29 +85,54 @@
             height: 230px;
             width: 100%;
             max-width: 400px;
-            margin: 0 auto;
+            margin: 120px auto 0 auto;
         }
 
-        /* Question cards */
+        /* Neon gradient animation for cards */
+        @keyframes neonGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         .card {
-            background: #111;
-            border: 3px solid #ffd600;
             border-radius: 15px;
             padding: 30px 40px;
             max-width: 400px;
             width: 100%;
-            box-shadow: 0 0 15px #ffd600aa;
             opacity: 0;
             position: absolute;
             left: -100%;
             top: 0;
             transition: none;
+            border: 3px solid transparent;
+            background: linear-gradient(270deg, #8e2de2, #4a00e0, #d4145a, #2a2a72);
+            background-size: 800% 800%;
+            animation: neonGradient 10s ease infinite;
+            box-shadow:
+                0 0 8px #8e2de2,
+                0 0 20px #4a00e0,
+                0 0 30px #d4145a,
+                0 0 40px #2a2a72;
+            color: #eee;
         }
 
         .card.active {
             opacity: 1;
             left: 0;
             transition: left 0.5s ease, opacity 0.5s ease;
+            box-shadow:
+                0 0 15px #a084ff,
+                0 0 30px #8258ff,
+                0 0 45px #bf5fff;
         }
 
         .card.slide-out {
@@ -113,7 +145,8 @@
             display: block;
             font-size: 1.4rem;
             margin-bottom: 15px;
-            color: #ffd600;
+            color: #d0c9ff;
+            text-shadow: 0 0 3px #8e2de2;
         }
 
         input,
@@ -124,24 +157,36 @@
             border-radius: 12px;
             border: none;
             outline: none;
+            background: #222;
+            color: #ddd;
+            box-shadow: inset 0 0 10px #4a00e0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            box-shadow: 0 0 15px #bf5fff;
+            background: #2b0b70;
+            color: #fff;
         }
 
         button {
             margin-top: 25px;
-            background: #ffd600;
+            background: #6a4eff;
             border: none;
-            color: #000;
+            color: #fff;
             font-weight: bold;
             font-size: 1.2rem;
             padding: 12px 25px;
             border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 0 15px #ffd600aa;
-            transition: background 0.3s ease;
+            box-shadow: 0 0 15px #8258ff;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         button:hover {
-            background: #ffec57;
+            background: #bf5fff;
+            box-shadow: 0 0 25px #bf5fff;
         }
 
         /* Celebration Screen */
@@ -149,7 +194,8 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            background: #ffcee3;
+            background: linear-gradient(270deg, #ff9a9e, #fbc7ac, #fad0c4, #ffd1ff);
+            background-size: 400% 400%;
             border-radius: 20px;
             padding: 50px 40px;
             max-width: 450px;
@@ -158,9 +204,10 @@
             font-weight: 900;
             font-size: 1.8rem;
             text-align: center;
-            animation: fadeInScale 1s ease forwards;
+            animation: fadeInScale 1s ease forwards, pinkishGradient 12s ease infinite;
             position: relative;
             margin-top: 80px;
+            z-index: 5;
         }
 
         #celebration h2 {
@@ -188,36 +235,17 @@
             }
         }
 
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: visible;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #ff5ca1;
-            opacity: 0.9;
-            animation: fall 3s linear forwards;
-            border-radius: 2px;
-        }
-
-        @keyframes fall {
+        @keyframes pinkishGradient {
             0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
             }
 
             100% {
-                transform: translateY(120vh) rotate(360deg);
-                opacity: 0;
+                background-position: 0% 50%;
             }
         }
     </style>
@@ -226,17 +254,17 @@
 <body>
 
     <!-- Background video: 
-       Replace "your-video.mp4" below with your actual video file name or path -->
+       Replace with your actual local video file path below -->
     <video id="bg-video" autoplay muted loop playsinline>
-        <source src="c:\Users\albin\Downloads\Candle_Faceoff_Video_Generation.mp4" type="video/mp4" />
+        <source src="c:/Users/albin/Downloads/Candle_Faceoff_Video_Generation.mp4" type="video/mp4" />
         Your browser does not support the video tag.
     </video>
 
     <!-- Black fade gradient mask over video -->
     <div id="video-mask"></div>
 
-    <!-- Heading -->
-    <h1 id="main-heading">           THE ULTIMATE POINTLESS QUESTION</h1>
+    <!-- Heading fixed top center -->
+    <h1 id="main-heading">THE ULTIMATE POINTLESS QUESTION</h1>
 
     <!-- Question Cards Container -->
     <div id="question-container">
@@ -278,8 +306,8 @@
         <div>birthday candles!</div>
     </div>
 
-    <!-- Confetti Container -->
-    <div class="confetti" id="confetti-container"></div>
+    <!-- Confetti Container (hidden as per your request) -->
+    <div class="confetti" id="confetti-container" style="display:none;"></div>
 
     <script>
         let current = 0;
@@ -288,11 +316,6 @@
         const questionContainer = document.getElementById('question-container');
         const videoMask = document.getElementById('video-mask');
         const bgVideo = document.getElementById('bg-video');
-
-        // Show heading on load
-        window.addEventListener('load', () => {
-            heading.classList.add('visible');
-        });
 
         function nextQuestion() {
             const currId = questions[current];
@@ -364,14 +387,20 @@
 
                 const celebration = document.getElementById("celebration");
                 celebration.style.display = "flex";
-                celebration.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 document.getElementById("candlesCount").textContent = candles.toLocaleString();
 
-                launchConfetti();
+                // Remove video mask so background video stays visible but no dark fade on result
+                videoMask.style.background = 'transparent';
+
+                // Optional: dim video brightness to keep focus on celebration
+                bgVideo.style.filter = 'brightness(0.5)';
+
+                // Disable confetti animation (you asked no video at the end)
+                // launchConfetti(); // Commented out
             });
         }
 
-        // Confetti function
+        // Confetti function - not called now
         function launchConfetti() {
             const confettiContainer = document.getElementById("confetti-container");
             confettiContainer.innerHTML = "";
@@ -388,30 +417,11 @@
                 confettiContainer.appendChild(confetti);
             }
 
+            // Remove confetti after animation
             setTimeout(() => {
                 confettiContainer.innerHTML = "";
             }, 4000);
         }
-
-        // Scroll event to fade heading and adjust video mask
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const fadeThreshold = 150;
-
-            // Fade heading out after threshold
-            if (scrollY > fadeThreshold) {
-                heading.style.opacity = Math.max(1 - (scrollY - fadeThreshold) / 150, 0);
-                heading.style.transform = `translateY(${30 + (scrollY - fadeThreshold) / 3}px)`;
-            } else {
-                heading.style.opacity = 1;
-                heading.style.transform = 'translateY(0)';
-            }
-
-            // Darken video mask as user scrolls down
-            const maskOpacity = Math.min(scrollY / 300, 0.9);
-            videoMask.style.background = `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,${maskOpacity}) 80%)`;
-            bgVideo.style.filter = `brightness(${0.7 - maskOpacity * 0.5})`;
-        });
     </script>
 
 </body>
