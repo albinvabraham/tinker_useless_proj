@@ -39,14 +39,7 @@ Navigate to the project folder and open the main hub page file (e.g., `options.h
 For Software:
 
 # Screenshots (Add at least 3)
-![https://drive.google.com/drive/folders/1DaH8O0PMtwM9pZIIHkTsX4KmSS0JO9kM?usp=sharing]()
-*The main hub page with a neon green theme, presenting the "Saliva" and "Candle" calculator options.*
-
-![Screenshot2]("")
-*The "Pointless Moment" calculator, featuring a dark, glossy cyberpunk theme with animated neon question cards.*
-
-![Screenshot3]("")
-*The maroon-themed result screen for the candle calculator, displaying the final count with a celebratory message.*
+![https://drive.google.com/drive/folders/1DaH8O0PMtwM9pZIIHkTsX4KmSS0JO9kM?usp=sharing]
 
 
 
