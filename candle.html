@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Fat Candles Calculator</title>
     <style>
-        /* Reset and base */
         * {
             box-sizing: border-box;
         }
@@ -25,9 +24,9 @@
             padding: 20px;
             position: relative;
             scroll-behavior: smooth;
+            transition: background 0.7s ease;
         }
 
-        /* Background video styling */
         #bg-video {
             position: fixed;
             top: 0;
@@ -37,10 +36,10 @@
             object-fit: cover;
             z-index: -2;
             filter: brightness(0.7);
-            transition: filter 0.5s ease;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            will-change: transform, opacity;
         }
 
-        /* Gradient mask over video that fades to black on scroll */
         #video-mask {
             position: fixed;
             top: 0;
@@ -50,13 +49,13 @@
             pointer-events: none;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 80%);
             z-index: -1;
-            transition: background 0.5s ease;
+            transition: background 0.5s ease, opacity 0.7s ease;
+            will-change: background, opacity;
         }
 
-        /* Heading fixed top center */
         h1#main-heading {
             position: fixed;
-            top: 15px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
@@ -68,10 +67,14 @@
             margin: 0;
             z-index: 10;
             background: rgba(18, 18, 18, 0.8);
-            padding: 10px 30px;
+            padding: 10px 40px;
             border-radius: 12px;
             user-select: none;
             transition: opacity 0.7s ease, transform 0.7s ease;
+            white-space: nowrap;
+            text-align: center;
+            max-width: 90vw;
+            box-sizing: border-box;
         }
 
         h1#main-heading.hidden {
@@ -79,16 +82,15 @@
             transform: translate(-50%, 30px);
         }
 
-        /* Cards container */
         #question-container {
             position: relative;
             height: 230px;
             width: 100%;
             max-width: 400px;
             margin: 120px auto 0 auto;
+            z-index: 2;
         }
 
-        /* Neon gradient animation for cards */
         @keyframes neonGradient {
             0% {
                 background-position: 0% 50%;
@@ -123,6 +125,7 @@
                 0 0 30px #d4145a,
                 0 0 40px #2a2a72;
             color: #eee;
+            will-change: left, opacity;
         }
 
         .card.active {
@@ -189,7 +192,6 @@
             box-shadow: 0 0 25px #bf5fff;
         }
 
-        /* Celebration Screen */
         #celebration {
             display: none;
             flex-direction: column;
@@ -206,21 +208,8 @@
             text-align: center;
             animation: fadeInScale 1s ease forwards, pinkishGradient 12s ease infinite;
             position: relative;
-            margin-top: 80px;
+            margin: 100px auto 50px auto;
             z-index: 5;
-        }
-
-        #celebration h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #d81e5b;
-            text-shadow: 0 0 10px #ff5ca1;
-        }
-
-        #candlesCount {
-            font-size: 2rem;
-            margin-top: 10px;
-            color: #8b0046;
         }
 
         @keyframes fadeInScale {
@@ -253,22 +242,16 @@
 
 <body>
 
-    <!-- Background video: 
-       Replace with your actual local video file path below -->
     <video id="bg-video" autoplay muted loop playsinline>
         <source src="c:/Users/albin/Downloads/Candle_Faceoff_Video_Generation.mp4" type="video/mp4" />
         Your browser does not support the video tag.
     </video>
 
-    <!-- Black fade gradient mask over video -->
     <div id="video-mask"></div>
 
-    <!-- Heading fixed top center -->
-    <h1 id="main-heading">THE ULTIMATE POINTLESS QUESTION</h1>
+    <h1 id="main-heading">THE POINTLESS MOMENT</h1>
 
-    <!-- Question Cards Container -->
     <div id="question-container">
-        <!-- Question Cards -->
         <div class="card active" id="q-age">
             <label for="age">AGE</label>
             <input type="number" id="age" min="1" max="120" placeholder="Enter your age" />
@@ -298,24 +281,21 @@
         </div>
     </div>
 
-    <!-- Celebration and Result -->
     <div id="celebration">
-        <h2>Yayyyyyyy! 🎉</h2>
-        <div>Your body fat can make</div>
+        <h2>LMAOOOOOOO</h2>
+        <div>WHEN MELTED , YOUR BODY CAN MAKE</div>
         <div id="candlesCount"></div>
-        <div>birthday candles!</div>
+        <div>B'DAY CANDLESSSSS HAHAHAHAHHAHA XD</div>
     </div>
-
-    <!-- Confetti Container (hidden as per your request) -->
-    <div class="confetti" id="confetti-container" style="display:none;"></div>
 
     <script>
         let current = 0;
         const questions = ["q-age", "q-sex", "q-height", "q-weight"];
         const heading = document.getElementById('main-heading');
-        const questionContainer = document.getElementById('question-container');
-        const videoMask = document.getElementById('video-mask');
         const bgVideo = document.getElementById('bg-video');
+        const videoMask = document.getElementById('video-mask');
+        const questionContainer = document.getElementById('question-container');
+        const celebration = document.getElementById('celebration');
 
         function nextQuestion() {
             const currId = questions[current];
@@ -325,20 +305,14 @@
                 alert("Please answer the question!");
                 return;
             }
-
-            // Animate current card sliding out right
             currCard.classList.add("slide-out");
-
             currCard.addEventListener("transitionend", function handler() {
                 currCard.classList.remove("active", "slide-out");
                 currCard.removeEventListener("transitionend", handler);
-
                 current++;
                 if (current < questions.length) {
                     const nextCard = document.getElementById(questions[current]);
                     nextCard.classList.add("active");
-                    // Scroll down smoothly to the question container
-                    nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             });
         }
@@ -353,77 +327,99 @@
                 alert("Please fill all inputs properly!");
                 return;
             }
-
-            // Body Fat % estimate (very simplified):
-            // For men: 1.2*BMI + 0.23*age - 16.2
-            // For women: 1.2*BMI + 0.23*age - 5.4
             const heightM = heightCm / 100;
             const bmi = weightKg / (heightM * heightM);
             let bodyFatPercent;
-
             if (sex === "male") {
                 bodyFatPercent = 1.2 * bmi + 0.23 * age - 16.2;
             } else {
                 bodyFatPercent = 1.2 * bmi + 0.23 * age - 5.4;
             }
-
-            // Clamp body fat % to reasonable limits
             if (bodyFatPercent < 2) bodyFatPercent = 2;
             if (bodyFatPercent > 50) bodyFatPercent = 50;
-
-            // Calculate fat mass in kg
             const fatKg = (bodyFatPercent / 100) * weightKg;
-
-            // Candles: assume 10 grams fat per candle = 0.01 kg per candle
             const candleWeightKg = 0.01;
             const candles = Math.floor(fatKg / candleWeightKg);
-
-            // Animate last card out then show celebration
             const lastCard = document.getElementById(questions[current]);
             lastCard.classList.add("slide-out");
             lastCard.addEventListener("transitionend", function handler() {
                 lastCard.classList.remove("active", "slide-out");
                 lastCard.removeEventListener("transitionend", handler);
-
-                const celebration = document.getElementById("celebration");
                 celebration.style.display = "flex";
                 document.getElementById("candlesCount").textContent = candles.toLocaleString();
-
-                // Remove video mask so background video stays visible but no dark fade on result
-                videoMask.style.background = 'transparent';
-
-                // Optional: dim video brightness to keep focus on celebration
-                bgVideo.style.filter = 'brightness(0.5)';
-
-                // Disable confetti animation (you asked no video at the end)
-                // launchConfetti(); // Commented out
+                launchConfetti();
+                bgVideo.style.opacity = '0';
+                setTimeout(() => {
+                    bgVideo.style.display = 'none';
+                    videoMask.style.display = 'none';
+                }, 700);
+                questionContainer.style.display = 'none';
             });
         }
 
-        // Confetti function - not called now
         function launchConfetti() {
-            const confettiContainer = document.getElementById("confetti-container");
-            confettiContainer.innerHTML = "";
-            const colors = ['#ff5ca1', '#ff9ac1', '#ffc0d9'];
+            const confettiContainer = document.createElement("div");
+            confettiContainer.style.position = "fixed";
+            confettiContainer.style.top = 0;
+            confettiContainer.style.left = 0;
+            confettiContainer.style.width = "100%";
+            confettiContainer.style.height = "100%";
+            confettiContainer.style.pointerEvents = "none";
+            confettiContainer.style.zIndex = "9999";
+            document.body.appendChild(confettiContainer);
 
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement("div");
-                confetti.classList.add("confetti-piece");
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.position = "absolute";
+                confetti.style.width = "8px";
+                confetti.style.height = "8px";
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                confetti.style.top = "-10px";
                 confetti.style.left = Math.random() * window.innerWidth + "px";
-                confetti.style.animationDelay = (Math.random() * 3) + "s";
-                confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
-                confetti.style.top = -10 + "px";
+                confetti.style.opacity = "0.8";
+                confetti.style.borderRadius = "50%";
+                confetti.style.animation = `confetti-fall ${3 + Math.random() * 2}s linear forwards`;
                 confettiContainer.appendChild(confetti);
+
+                confetti.style.animationDelay = (Math.random() * 3) + "s";
             }
 
-            // Remove confetti after animation
             setTimeout(() => {
-                confettiContainer.innerHTML = "";
-            }, 4000);
+                confettiContainer.remove();
+            }, 6000);
         }
-    </script>
 
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const maxScroll = window.innerHeight * 0.7;
+            const moveAmount = Math.min(scrollY, maxScroll);
+            bgVideo.style.transform = `translateY(-${moveAmount}px)`;
+            let opacityVal = 1 - scrollY / (maxScroll * 1.2);
+            opacityVal = Math.max(0, Math.min(1, opacityVal));
+            bgVideo.style.opacity = opacityVal;
+            videoMask.style.opacity = opacityVal;
+
+            if (opacityVal <= 0) {
+                document.body.style.background = 'linear-gradient(135deg, #1e1e2f, #2c2c42)';
+            } else {
+                document.body.style.background = '#121212';
+            }
+
+            if (scrollY > 50) {
+                heading.classList.add('hidden');
+            } else {
+                heading.classList.remove('hidden');
+            }
+        });
+    </script>
+    <style>
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
 </body>
 
 </html>
