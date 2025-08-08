@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose Your Poison</title>
+    <style>
+        /* --- Base & Background --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            background: linear-gradient(135deg, #0a190a, #122e12, #001f00);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Center content vertically */
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- Heading --- */
+        h1#main-heading {
+            margin-bottom: 60px;
+            font-weight: 900;
+            font-size: 3.5rem;
+            letter-spacing: 6px;
+            padding: 20px 40px;
+            border-radius: 15px;
+            background: rgba(10, 40, 10, 0.75);
+            border: 2px solid #39ff14;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.7), inset 0 0 15px rgba(57, 255, 20, 0.5);
+            color: #d0ffd0;
+            text-align: center;
+            user-select: none;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* --- Button Container --- */
+        #button-container {
+            display: flex;
+            gap: 40px;
+            /* Space between the buttons */
+            justify-content: center;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        /* --- Button Styling --- */
+        .choice-btn {
+            background: linear-gradient(145deg, #1a4d1a, #2a6d2a);
+            border: none;
+            padding: 25px 50px;
+            width: 100%;
+            font-weight: 900;
+            font-size: 2rem;
+            color: white;
+            border-radius: 14px;
+            cursor: pointer;
+            border: 2px solid #39ff14;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            user-select: none;
+        }
+
+        .choice-btn:hover {
+            background: linear-gradient(145deg, #2a6d2a, #3a8d3a);
+            box-shadow: 0 0 40px #39ff14;
+            transform: translateY(-5px);
+            /* Lift effect on hover */
+        }
+
+        .choice-btn:active {
+            transform: translateY(0);
+            /* Button press effect */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="main-heading">CHOOSE YOUR POISON</h1>
+
+    <div id="button-container">
+        <button class="choice-btn" onclick="window.location.href='spit.html'">Saliva</button>
+        <button class="choice-btn" onclick="window.location.href='candle.html'">Candle</button>
+    </div>
+
+</body>
+
+</html>

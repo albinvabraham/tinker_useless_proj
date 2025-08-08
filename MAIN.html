@@ -28,6 +28,8 @@
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
+            padding-top: 40px;
+            /* Added padding to space content from the top */
         }
 
         @keyframes gradientMove {
@@ -235,13 +237,12 @@
 <body>
 
     <h1>WELCOME.... where you cannot escape at all AND WE WILL FIND HOW MANY CANDLES CAN BE MADE BY MELTING ALL OF YOUR
-        FAT FROM BODY</h1>
+        FAT FROM BODY ORRRRRRRR u could just check how much spit u make in a yearr, PRETTY USELESS !!! RIGHTTT????</h1>
 
     <div class="button-box" id="arena">
         <button id="enter-btn">Enter</button>
         <button id="back-btn" class="runaway">Back</button>
 
-        <!-- Stickman Face -->
         <div id="stickman">
             <div id="head">
                 <div class="eye" id="eye-left">
@@ -274,7 +275,6 @@
             backBtn.style.left = `${randX}px`;
             backBtn.style.top = `${randY}px`;
 
-            // Position stickman above the back button inside the arena
             const btnRect = backBtn.getBoundingClientRect();
             const arenaRect = arena.getBoundingClientRect();
 
@@ -285,7 +285,6 @@
             stickman.style.top = `${offsetY}px`;
             stickman.style.opacity = '1';
 
-            // Restart tongue animation
             tongue.style.animation = 'none';
             void tongue.offsetWidth;
             tongue.style.animation = 'tongueOut 1.2s forwards';
@@ -296,22 +295,23 @@
         });
 
         enterBtn.addEventListener('click', () => {
-            window.location.href = "candle.html";
+            // This is the updated line
+            window.location.href = "options.html";
         });
     </script>
 
-</body>
-
-<div
-    style="margin-top: 20px; max-width: 560px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 15px rgba(255,255,255,0.2);">
-    <iframe width="100%" height="315"
-        src="https://www.youtube.com/embed/J---aiyznGQ?autoplay=1&loop=1&playlist=J---aiyznGQ&controls=1&mute=0"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-    <div style="text-align:center; color: #ddd; margin-top: 8px; font-style: italic; font-size: 1rem;">
-        Here is a cute cat video
+    <div
+        style="margin-top: 20px; max-width: 560px; border-radius: 12px; overflow: hidden; box-shadow: 0 0 15px rgba(255,255,255,0.2);">
+        <iframe width="100%" height="315"
+            src="https://www.youtube.com/embed/J---aiyznGQ?autoplay=1&loop=1&playlist=J---aiyznGQ&controls=1&mute=0"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        <div style="text-align:center; color: #ddd; margin-top: 8px; font-style: italic; font-size: 1rem;">
+            Here is a cute cat video
+        </div>
     </div>
-</div>
+
+</body>
 
 </html>

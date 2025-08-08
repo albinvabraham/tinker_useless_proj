@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Pointless Moment</title>
+    <title>The Ultimate Spit Test</title>
     <style>
-        /* --- Base & Background --- */
+        /* --- Base & Background Fix --- */
         * {
             margin: 0;
             padding: 0;
@@ -21,6 +21,7 @@
             min-height: 100%;
             background: linear-gradient(135deg, #0f0f19, #1a1a2e, #3a3a6e);
             background-attachment: fixed;
+            /* This locks the background in place */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #eee;
             display: flex;
@@ -28,13 +29,6 @@
             align-items: center;
             padding: 20px;
             overflow-x: hidden;
-            transition: background 1s ease;
-            /* Smooth transition for background change */
-        }
-
-        /* New style for the body when the result is shown */
-        body.result-mode {
-            background: linear-gradient(135deg, #2a0000, #4d0000, #800000);
         }
 
         /* --- Heading --- */
@@ -55,7 +49,6 @@
             z-index: 100;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            transition: opacity 0.5s ease;
         }
 
         /* --- Question Container (for positioning) --- */
@@ -169,7 +162,7 @@
             box-shadow: 0 0 35px #7e70ff;
         }
 
-        /* --- Celebration Result (MAROON THEME) --- */
+        /* --- Celebration Result (RED THEME) --- */
         #celebration {
             display: none;
             /* Hidden by default */
@@ -180,7 +173,7 @@
             max-width: 480px;
             width: 100%;
             border-radius: 20px;
-            background: linear-gradient(135deg, #4d0000, #800000);
+            background: linear-gradient(135deg, #8B0000, #ff1b1b);
             box-shadow: 0 0 30px #ff1b1b;
             border: 2px solid #ff4d4d;
             color: #fff;
@@ -207,11 +200,11 @@
             margin-bottom: 10px;
         }
 
-        #candlesCount {
-            font-size: 2.2rem;
+        #spitAmount {
+            font-size: 2.5rem;
             color: #ffcccc;
             margin: 10px 0;
-            text-shadow: 0 0 10px #ffcccc;
+            text-shadow: 0 0 15px #ffcccc;
         }
 
         /* --- Confetti --- */
@@ -226,19 +219,19 @@
 
 <body>
 
-    <h1 id="main-heading">THE POINTLESS MOMENT</h1>
+    <h1 id="main-heading">THE ULTIMATE SPIT TEST</h1>
 
     <div id="question-container">
         <div class="card active" id="q-age">
-            <label for="age">AGE</label>
+            <label for="age">How old are u?</label>
             <input type="number" id="age" min="1" max="120" placeholder="e.g., 25" />
             <button onclick="nextQuestion()">Next</button>
         </div>
 
         <div class="card" id="q-sex">
-            <label for="sex">SEX</label>
+            <label for="sex">Aight, Male or Female?</label>
             <select id="sex">
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected>Choose one...</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
@@ -246,29 +239,28 @@
         </div>
 
         <div class="card" id="q-height">
-            <label for="height">HEIGHT (cm)</label>
+            <label for="height">How tall? (in cm)</label>
             <input type="number" id="height" min="30" max="300" placeholder="e.g., 175" />
             <button onclick="nextQuestion()">Next</button>
         </div>
 
         <div class="card" id="q-weight">
-            <label for="weight">WEIGHT (kg)</label>
+            <label for="weight">Last one, weight? (in kg)</label>
             <input type="number" id="weight" min="1" max="500" placeholder="e.g., 70" />
-            <button onclick="calculateFat()">Calculate</button>
+            <button onclick="calculateSpit()">Let's See It</button>
         </div>
     </div>
 
     <div id="celebration">
-        <h2>LMAOOOOOOO</h2>
-        <div>WHEN MELTED, YOUR BODY CAN MAKE</div>
-        <div id="candlesCount"></div>
-        <div>B'DAY CANDLESSSSS HAHAHAHAHHAHA XD</div>
+        <h2>AYO CHECK THIS OUT</h2>
+        <div>In one year, you make enough spit to fill...</div>
+        <div id="spitAmount"></div>
+        <div>That's kinda gross tbh lmao</div>
     </div>
 
     <script>
         let current = 0;
         const questions = ["q-age", "q-sex", "q-height", "q-weight"];
-        const mainHeading = document.getElementById('main-heading');
         const questionContainer = document.getElementById('question-container');
         const celebration = document.getElementById('celebration');
 
@@ -277,7 +269,7 @@
             const input = currentCard.querySelector("input, select");
 
             if (!input.value) {
-                alert("Please answer the question!");
+                alert("Yo, you gotta answer the question!");
                 return;
             }
 
@@ -293,49 +285,19 @@
             }, 600);
         }
 
-        function calculateFat() {
-            const age = parseInt(document.getElementById("age").value);
-            const sex = document.getElementById("sex").value;
-            const heightCm = parseFloat(document.getElementById("height").value);
-            const weightKg = parseFloat(document.getElementById("weight").value);
-
-            if (!age || !sex || !heightCm || !weightKg) {
-                alert("Please fill all inputs properly!");
-                return;
-            }
-
-            const heightM = heightCm / 100;
-            const bmi = weightKg / (heightM * heightM);
-            let bodyFatPercent;
-
-            if (sex === "male") {
-                bodyFatPercent = 1.2 * bmi + 0.23 * age - 16.2;
-            } else {
-                bodyFatPercent = 1.2 * bmi + 0.23 * age - 5.4;
-            }
-
-            if (bodyFatPercent < 2) bodyFatPercent = 2;
-            if (bodyFatPercent > 50) bodyFatPercent = 50;
-
-            const fatKg = (bodyFatPercent / 100) * weightKg;
-            const candleWeightKg = 0.01;
-            const candles = Math.floor(fatKg / candleWeightKg);
+        function calculateSpit() {
+            // Average person produces ~1.2 liters of saliva a day.
+            const spitPerDay = 1.2;
+            const spitPerYear = spitPerDay * 365;
 
             const lastCard = document.getElementById(questions[current]);
 
             lastCard.classList.add("slide-out");
 
             setTimeout(() => {
-                // HIDE old elements
                 questionContainer.style.display = 'none';
-                mainHeading.style.opacity = '0';
-
-                // CHANGE the background color
-                document.body.classList.add('result-mode');
-
-                // SHOW the celebration
                 celebration.style.display = "flex";
-                document.getElementById("candlesCount").textContent = candles.toLocaleString();
+                document.getElementById("spitAmount").textContent = `${spitPerYear.toFixed(0)} Liters`;
                 launchConfetti();
             }, 600);
         }
