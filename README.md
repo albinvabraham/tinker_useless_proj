@@ -39,7 +39,7 @@ Navigate to the project folder and open the main hub page file (e.g., `options.h
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1]("")
+![Screenshot1]('https://drive.google.com/drive/folders/1DaH8O0PMtwM9pZIIHkTsX4KmSS0JO9kM?usp=sharing')
 *The main hub page with a neon green theme, presenting the "Saliva" and "Candle" calculator options.*
 
 ![Screenshot2]("")
@@ -48,9 +48,7 @@ For Software:
 ![Screenshot3]("")
 *The maroon-themed result screen for the candle calculator, displaying the final count with a celebratory message.*
 
-# Diagrams
-![Workflow](workflow_diagram.png)
-*The user starts at the hub, chooses a calculator, answers a series of questions one-by-one, and is finally presented with a humorous, calculated result.*
+
 
 For Hardware:
 N/A
@@ -65,9 +63,6 @@ N/A
 # Video
 [Add your demo video link here]
 *The video demonstrates navigating from the main hub page, selecting one of the calculators, answering the series of questions, and arriving at the final, animated result screen.*
-
-# Additional Demos
-[Add any extra demo materials/links]
 
 ## Team Contributions
 - Albin V Abraham: [BASICALLY I DID EVERYTHING!]
