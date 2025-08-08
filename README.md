@@ -7,22 +7,22 @@
 
 
 ### Team Members
-- Team Lead: [Albin V Abraham] - [ICCS COLLLEGE OF ENGINEERING AND MANAGEMENT]
+- Team Lead: Albin V Abraham - ICCS COLLLEGE OF ENGINEERING AND MANAGEMENT
 
 ### Project Description
 [2-3 lines about what your project does]
 
 ### The Problem (that doesn't exist)
-[I am trying to give a useless answer to useless info]
+I am trying to give a useless answer to useless info
 
 ### The Solution (that nobody asked for)
-[I was just making a solution which popped in my head as i was procrasinating while laying on my bed, I am giving a answer for a pointless question by taking the physical measurements of the user]
+I was just making a solution which popped in my head as i was procrasinating while laying on my bed, I am giving a answer for a pointless question by taking the physical measurements of the user
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [HTML]
-- [VS STUDIO]
+- HTML
+- VS STUDIO
 ### Implementation
 For Software:
 # Installation
@@ -76,7 +76,7 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Albin V Abraham]: [BASICALLY I DID EVERYTHING!]
+- Albin V Abraham: [BASICALLY I DID EVERYTHING!]
 
 
 
