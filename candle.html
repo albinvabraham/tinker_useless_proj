@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fat Candles Calculator</title>
+    <style>
+        /* Reset and base */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #ffd600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ffd600;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #ffd600;
+        }
+
+        .card {
+            background: #111;
+            border: 3px solid #ffd600;
+            border-radius: 15px;
+            padding: 30px 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 15px #ffd600aa;
+            opacity: 0;
+            position: absolute;
+            left: -100%;
+            top: 100px;
+            transition: none;
+        }
+
+        .card.active {
+            opacity: 1;
+            left: 0;
+            transition: left 0.5s ease, opacity 0.5s ease;
+        }
+
+        .card.slide-out {
+            left: 100%;
+            opacity: 0;
+            transition: left 0.5s ease, opacity 0.5s ease;
+        }
+
+        label {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffd600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            margin-top: 25px;
+            background: #ffd600;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ffd600aa;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #ffec57;
+        }
+
+        /* Celebration Screen */
+        #celebration {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background: #ffcee3;
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 450px;
+            box-shadow: 0 0 20px #ff5ca1;
+            color: #b00058;
+            font-weight: 900;
+            font-size: 1.8rem;
+            text-align: center;
+            animation: fadeInScale 1s ease forwards;
+            position: relative;
+        }
+
+        #celebration h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #d81e5b;
+            text-shadow: 0 0 10px #ff5ca1;
+        }
+
+        #candlesCount {
+            font-size: 2rem;
+            margin-top: 10px;
+            color: #8b0046;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ff5ca1;
+            opacity: 0.9;
+            animation: fall 3s linear forwards;
+            border-radius: 2px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container for absolute positioning */
+        #question-container {
+            position: relative;
+            height: 230px;
+            /* Enough for the cards */
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Body Fat Birthday Candles 🎂🔥</h1>
+
+    <div id="question-container">
+        <!-- Question Cards -->
+        <div class="card active" id="q-age">
+            <label for="age">AGE</label>
+            <input type="number" id="age" min="1" max="120" placeholder="Enter your age" />
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div class="card" id="q-sex">
+            <label for="sex">SEX</label>
+            <select id="sex">
+                <option value="" disabled selected>Select your sex</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div class="card" id="q-height">
+            <label for="height">HEIGHT (cm)</label>
+            <input type="number" id="height" min="30" max="300" placeholder="Enter your height in cm" />
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div class="card" id="q-weight">
+            <label for="weight">WEIGHT (kg)</label>
+            <input type="number" id="weight" min="1" max="500" placeholder="Enter your weight in kg" />
+            <button onclick="calculateFat()">Calculate</button>
+        </div>
+    </div>
+
+    <!-- Celebration and Result -->
+    <div id="celebration">
+        <h2>Yayyyyyyy! 🎉</h2>
+        <div>Your body fat can make</div>
+        <div id="candlesCount"></div>
+        <div>birthday candles!</div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti" id="confetti-container"></div>
+
+    <script>
+        let current = 0;
+        const questions = ["q-age", "q-sex", "q-height", "q-weight"];
+
+        function nextQuestion() {
+            const currId = questions[current];
+            const currCard = document.getElementById(currId);
+            const input = currCard.querySelector("input, select");
+            if (!input.value) {
+                alert("Please answer the question!");
+                return;
+            }
+
+            // Animate current card sliding out right
+            currCard.classList.add("slide-out");
+
+            // After animation ends, hide current and show next
+            currCard.addEventListener("transitionend", function handler() {
+                currCard.classList.remove("active", "slide-out");
+                currCard.removeEventListener("transitionend", handler);
+
+                current++;
+                if (current < questions.length) {
+                    const nextCard = document.getElementById(questions[current]);
+                    nextCard.classList.add("active");
+                }
+            });
+        }
+
+        function calculateFat() {
+            const age = parseInt(document.getElementById("age").value);
+            const sex = document.getElementById("sex").value;
+            const heightCm = parseFloat(document.getElementById("height").value);
+            const weightKg = parseFloat(document.getElementById("weight").value);
+
+            if (!age || !sex || !heightCm || !weightKg) {
+                alert("Please fill all inputs properly!");
+                return;
+            }
+
+            // Body Fat % estimate (very simplified):
+            // For men: 1.2*BMI + 0.23*age - 16.2
+            // For women: 1.2*BMI + 0.23*age - 5.4
+            const heightM = heightCm / 100;
+            const bmi = weightKg / (heightM * heightM);
+            let bodyFatPercent;
+
+            if (sex === "male") {
+                bodyFatPercent = 1.2 * bmi + 0.23 * age - 16.2;
+            } else {
+                bodyFatPercent = 1.2 * bmi + 0.23 * age - 5.4;
+            }
+
+            // Clamp body fat % to reasonable limits
+            if (bodyFatPercent < 2) bodyFatPercent = 2;
+            if (bodyFatPercent > 50) bodyFatPercent = 50;
+
+            // Calculate fat mass in kg
+            const fatKg = (bodyFatPercent / 100) * weightKg;
+
+            // Candles: assume 10 grams fat per candle = 0.01 kg per candle
+            const candleWeightKg = 0.01;
+            const candles = Math.floor(fatKg / candleWeightKg);
+
+            // Animate last card out then show celebration
+            const lastCard = document.getElementById(questions[current]);
+            lastCard.classList.add("slide-out");
+            lastCard.addEventListener("transitionend", function handler() {
+                lastCard.classList.remove("active", "slide-out");
+                lastCard.removeEventListener("transitionend", handler);
+
+                const celebration = document.getElementById("celebration");
+                celebration.style.display = "flex";
+                document.getElementById("candlesCount").textContent = candles.toLocaleString();
+
+                launchConfetti();
+            });
+        }
+
+        // Confetti function
+        function launchConfetti() {
+            const confettiContainer = document.getElementById("confetti-container");
+            confettiContainer.innerHTML = "";
+            const colors = ['#ff5ca1', '#ff9ac1', '#ffc0d9'];
+
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti-piece");
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.animationDelay = (Math.random() * 3) + "s";
+                confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
+                confetti.style.top = -10 + "px";
+                confettiContainer.appendChild(confetti);
+            }
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                confettiContainer.innerHTML = "";
+            }, 4000);
+        }
+    </script>
+
+</body>
+
+</html>
