@@ -42,10 +42,10 @@ For Software:
 ![Screenshot1]("c:\Users\albin\OneDrive\Pictures\Screenshots\Screenshot 2025-08-09 005851.png")
 *The main hub page with a neon green theme, presenting the "Saliva" and "Candle" calculator options.*
 
-![Screenshot2]("c:\Users\albin\OneDrive\Pictures\Screenshots\Screenshot 2025-08-09 005851.png")
+![Screenshot2]("")
 *The "Pointless Moment" calculator, featuring a dark, glossy cyberpunk theme with animated neon question cards.*
 
-![Screenshot3]("c:\Users\albin\OneDrive\Pictures\Screenshots\Screenshot 2025-08-09 005851.png")
+![Screenshot3]("")
 *The maroon-themed result screen for the candle calculator, displaying the final count with a celebratory message.*
 
 # Diagrams
