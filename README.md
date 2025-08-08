@@ -1,4 +1,4 @@
-# IWasTooLazyToNameIt 🎯
+# iWasTooLazyToNameIt 🎯
 
 
 ## Basic Details
