@@ -2,16 +2,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
     <title>Welcome Trap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
         body {
             margin: 0;
             height: 100vh;
             background: linear-gradient(-45deg, #2a003f, #0d1b2a, #16213e, #3a0ca3);
             background-size: 400% 400%;
-            animation: gradientMove 12s ease infinite;
+            animation: gradientMove 6s ease infinite;
+            /* Faster gradient speed */
             font-family: Arial, sans-serif;
             color: white;
             display: flex;
@@ -35,11 +36,11 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 40px;
             opacity: 0;
             animation: fadeIn 2s forwards;
-            color: #aec85a;
+            color: #d9ec4d;
             text-shadow: 0px 0px 20px rgba(255, 159, 243, 0.8);
             text-align: center;
             max-width: 80%;
@@ -74,13 +75,13 @@
             border: none;
             font-weight: bold;
             position: absolute;
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         #enter-btn {
             background: #00f5d4;
             color: #0d1b2a;
-            left: 100px;
+            left: 80px;
             top: 80px;
         }
 
@@ -100,6 +101,125 @@
             background: #d90452;
             box-shadow: 0px 0px 15px #ff006e;
         }
+
+        .runaway {
+            position: absolute;
+        }
+
+        /* --- Stickman Face Styles --- */
+        #stickman {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Head (circle) */
+        #head {
+            width: 80px;
+            height: 80px;
+            background: #f5c29a;
+            border: 3px solid #b5651d;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 8px rgba(181, 101, 29, 0.5);
+        }
+
+        /* Eyes */
+        .eye {
+            width: 15px;
+            height: 15px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+        }
+
+        #eye-left {
+            left: 18px;
+        }
+
+        #eye-right {
+            right: 18px;
+        }
+
+        /* Pupils */
+        .pupil {
+            width: 8px;
+            height: 8px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            5%,
+            10%,
+            100% {
+                height: 8px;
+            }
+
+            7.5% {
+                height: 2px;
+            }
+        }
+
+        /* Mouth */
+        #mouth {
+            width: 40px;
+            height: 25px;
+            background: #a23e48;
+            border-radius: 0 0 30px 30px;
+            border: 2px solid #b5651d;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: visible;
+        }
+
+        /* Tongue */
+        #tongue {
+            width: 15px;
+            height: 20px;
+            background: #ff4f6d;
+            border-radius: 10px 10px 15px 15px;
+            border: 2px solid #b5651d;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            animation: tongueOut 1.2s forwards;
+            opacity: 0;
+        }
+
+        @keyframes tongueOut {
+            0% {
+                transform: translateX(-50%) translateY(100%);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-50%) translateY(100%);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -107,48 +227,78 @@
 
     <h1>Welcome here, where you cannot escape at all</h1>
 
-    <div class="button-box" id="buttonBox">
+    <div class="button-box" id="arena">
         <button id="enter-btn">Enter</button>
-        <button id="back-btn">Back</button>
+        <button id="back-btn" class="runaway">Back</button>
+
+        <!-- Stickman Face -->
+        <div id="stickman">
+            <div id="head">
+                <div class="eye" id="eye-left">
+                    <div class="pupil"></div>
+                </div>
+                <div class="eye" id="eye-right">
+                    <div class="pupil"></div>
+                </div>
+                <div id="mouth">
+                    <div id="tongue"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const backBtn = document.getElementById("back-btn");
-        const enterBtn = document.getElementById("enter-btn");
-        const box = document.getElementById("buttonBox");
+        const backBtn = document.getElementById('back-btn');
+        const enterBtn = document.getElementById('enter-btn');
+        const arena = document.getElementById('arena');
+        const stickman = document.getElementById('stickman');
+        const tongue = document.getElementById('tongue');
 
-        box.addEventListener("mousemove", (e) => {
-            const rect = box.getBoundingClientRect();
+        backBtn.addEventListener('mouseenter', () => {
+            const maxX = arena.clientWidth - backBtn.offsetWidth;
+            const maxY = arena.clientHeight - backBtn.offsetHeight;
+
+            const randX = Math.random() * maxX;
+            const randY = Math.random() * maxY;
+
+            backBtn.style.left = `${randX}px`;
+            backBtn.style.top = `${randY}px`;
+
+            // Position stickman above the back button inside the arena
             const btnRect = backBtn.getBoundingClientRect();
+            const arenaRect = arena.getBoundingClientRect();
 
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
+            const offsetX = btnRect.left - arenaRect.left + btnRect.width / 2 - stickman.offsetWidth / 2;
+            const offsetY = btnRect.top - arenaRect.top - stickman.offsetHeight - 10;
 
-            const btnX = btnRect.left - rect.left + btnRect.width / 2;
-            const btnY = btnRect.top - rect.top + btnRect.height / 2;
+            stickman.style.left = `${offsetX}px`;
+            stickman.style.top = `${offsetY}px`;
+            stickman.style.opacity = '1';
 
-            const dist = Math.hypot(mouseX - btnX, mouseY - btnY);
-
-            // Run away sooner (200px instead of close)
-            if (dist < 200) {
-                let newX = btnRect.left - rect.left + (btnX - mouseX) * 0.8;
-                let newY = btnRect.top - rect.top + (btnY - mouseY) * 0.8;
-
-                // Keep inside box
-                newX = Math.min(rect.width - btnRect.width, Math.max(0, newX));
-                newY = Math.min(rect.height - btnRect.height, Math.max(0, newY));
-
-                backBtn.style.left = newX + "px";
-                backBtn.style.top = newY + "px";
-            }
+            // Restart tongue animation
+            tongue.style.animation = 'none';
+            void tongue.offsetWidth; // Trigger reflow
+            tongue.style.animation = 'tongueOut 1.2s forwards';
         });
 
-        // Enter button click
-        enterBtn.addEventListener("click", () => {
-            alert("You chose to enter... and there's no way back now.");
+        backBtn.addEventListener('mouseleave', () => {
+            stickman.style.opacity = '0';
+        });
+
+        enterBtn.addEventListener('click', () => {
+            window.location.href = "your-next-page.html"; // Change this to your actual target page
         });
     </script>
 
 </body>
+
+<!-- Kitty Video -->
+<div
+    style="margin-top: 20px; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0px 0px 15px rgba(255,255,255,0.2);">
+    <video width="100%" height="280" autoplay loop playsinline controls style="display: block;">
+        <source src="c:\Users\albin\Downloads\ooeeeaa.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+</div>
 
 </html>
