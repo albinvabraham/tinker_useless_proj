@@ -3,7 +3,7 @@
 
 
 ## Basic Details
-### Team Name: [Individual]
+### Team Name: JINX (Individual)
 
 
 ### Team Members
