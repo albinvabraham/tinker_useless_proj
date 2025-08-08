@@ -54,21 +54,24 @@
         /* --- Button Container --- */
         #button-container {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             /* Space between the buttons */
             justify-content: center;
+            flex-wrap: wrap;
+            /* Allows buttons to wrap on smaller screens */
             width: 100%;
-            max-width: 700px;
+            max-width: 900px;
         }
 
         /* --- Button Styling --- */
         .choice-btn {
             background: linear-gradient(145deg, #1a4d1a, #2a6d2a);
             border: none;
-            padding: 25px 50px;
-            width: 100%;
+            padding: 20px 40px;
+            flex-grow: 1;
+            /* Allows buttons to share space */
             font-weight: 900;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: white;
             border-radius: 14px;
             cursor: pointer;
@@ -101,6 +104,8 @@
     <div id="button-container">
         <button class="choice-btn" onclick="window.location.href='spit.html'">Saliva</button>
         <button class="choice-btn" onclick="window.location.href='candle.html'">Candle</button>
+        <button class="choice-btn"
+            onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">Surprisee</button>
     </div>
 
 </body>
