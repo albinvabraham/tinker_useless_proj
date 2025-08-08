@@ -1,5 +1,5 @@
 
-# [IWasTooLazyToNameIt] 🎯
+# IWasTooLazyToNameIt 🎯
 
 
 ## Basic Details
