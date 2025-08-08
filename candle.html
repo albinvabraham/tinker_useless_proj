@@ -14,7 +14,7 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000;
+            background: #282727;
             color: #ffd600;
             display: flex;
             justify-content: center;
@@ -23,6 +23,7 @@
             overflow-x: hidden;
             flex-direction: column;
             padding: 20px;
+            position: relative;
         }
 
         h1 {
@@ -33,6 +34,8 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             text-shadow: 0 0 10px #ffd600;
+            z-index: 10;
+            position: relative;
         }
 
         .card {
@@ -48,6 +51,7 @@
             left: -100%;
             top: 100px;
             transition: none;
+            z-index: 10;
         }
 
         .card.active {
@@ -91,6 +95,8 @@
             cursor: pointer;
             box-shadow: 0 0 15px #ffd600aa;
             transition: background 0.3s ease;
+            z-index: 10;
+            position: relative;
         }
 
         button:hover {
@@ -113,6 +119,7 @@
             text-align: center;
             animation: fadeInScale 1s ease forwards;
             position: relative;
+            z-index: 10;
         }
 
         #celebration h2 {
@@ -149,6 +156,7 @@
             height: 100%;
             pointer-events: none;
             overflow: visible;
+            z-index: 20;
         }
 
         .confetti-piece {
@@ -180,6 +188,21 @@
             /* Enough for the cards */
             width: 100%;
             max-width: 400px;
+            z-index: 10;
+        }
+
+        /* Background Video Styling */
+        #bg-video {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 320px;
+            height: 180px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #ffd600cc;
+            z-index: 1;
+            object-fit: cover;
+            background: black;
         }
     </style>
 </head>
@@ -229,6 +252,16 @@
 
     <!-- Confetti Container -->
     <div class="confetti" id="confetti-container"></div>
+
+    <!--
+      Background video added here:
+      Replace 'my-cat-video.mp4' with your local video file path.
+      This video plays automatically, loops, and has controls.
+    -->
+    <video id="bg-video" autoplay loop playsinline controls muted>
+        <source src="c:\Users\albin\Downloads\Candle_Faceoff_Video_Generation.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
 
     <script>
         let current = 0;
