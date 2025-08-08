@@ -52,10 +52,5 @@ N/A
 # Build Photos
 N/A
 
-### Project Demo
-# Video
-[Add your demo video link here]
-*The video demonstrates navigating from the main hub page, selecting one of the calculators, answering the series of questions, and arriving at the final, animated result screen.*
-
 ## Team Contributions
 - Albin V Abraham: [BASICALLY I DID EVERYTHING!]
