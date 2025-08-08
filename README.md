@@ -39,7 +39,7 @@ Navigate to the project folder and open the main hub page file (e.g., `options.h
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1]("c:\Users\albin\OneDrive\Pictures\Screenshots\Screenshot 2025-08-09 005851.png")
+![Screenshot1]("")
 *The main hub page with a neon green theme, presenting the "Saliva" and "Candle" calculator options.*
 
 ![Screenshot2]("")
